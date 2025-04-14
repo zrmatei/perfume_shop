@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
+import "../css/home.css"
 
 const brands = ['Dior', 'Chanel', 'Tom Ford', 'Parfums de Marly'];
 

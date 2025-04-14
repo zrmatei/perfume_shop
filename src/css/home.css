@@ -1,0 +1,14 @@
+.homeBar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homeBar #brand_name{
+    color: grey;
+}
+
+.homeBar .barDetails{
+    color: purple;
+    padding-left: 1rem;
+}
