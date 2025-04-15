@@ -1,14 +1,104 @@
-.homeBar{
+.header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding: 50px;
 }
 
-.homeBar #brand_name{
-    color: grey;
+#barLeft{
+    font-family: 'maison';
 }
 
-.homeBar .barDetails{
-    color: purple;
-    padding-left: 1rem;
+#barCenter {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-55%);
+}
+
+#barRight {
+    display: flex;
+    gap: 20px;
+}
+
+.fidelityContainer {
+    position: relative;
+  }
+  
+  .fidelityText {
+    position: absolute;
+    opacity: 0;
+    left: 110%;
+    right: 100%;
+    bottom: -20%;
+    padding: 5px 10px;
+    color: blanchedalmond;
+    font-family: 'maison', serif;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    font-size: 13.5px;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translate(-50%, 10px);
+  }
+  
+  .fidelityContainer:hover .fidelityText {
+    opacity: 1;
+    transform: translate(-50%);
+  }
+  
+
+.bannerHome {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    overflow: hidden;
+}
+  
+.bannerHome img {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.bannerContainer {
+    display: flex;
+    gap: 35px;
+    background-color: black;
+    color: #ffebcd;
+    padding: 4px;
+    box-shadow:  inset  -7px -4px 52px 6px #1f1736;
+    border-radius: 5px;
+    font-family: "Georgia";
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+  
+@font-face {
+    font-family: 'maison';
+    src: url(../assets//maison-font.ttf);
+}
+
+.bannerContainer h2{
+    font-family: 'maison', sans-serif;
+}
+  
+
+.underline{
+    position: relative;
+}
+
+.underline:after {
+    content: '';
+    position: absolute;
+    top: 95%;
+    width: 100%;
+    aspect-ratio: 3/1;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, 0);
+    border: 3px solid blanchedalmond;
+    clip-path: polygon(0 0, 50% 50%, 100% 0);
 }
