@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import profile from '../assets/profile.svg';
 import search from '../assets/search.svg';
+import showmore from '../assets/menu-grid-o.svg';
 import fidelity from '../assets/card-clubs.svg'
 import HeartIcon from './HeartIcon';
 import BagIcon from './BagIcon';
@@ -21,11 +22,13 @@ function Layout() {
   return (
     <div>
       <div className="header">
-        {/*TODO FIDELITY INTERFACE*/}
+        {/*TODO LOYALTY INTERFACE + SHOW BRANDS MESAJ GEN ON/OFF CONTOR / SWITCH */}
         <div id='barLeft' className='fidelityContainer'>
           <a>
             <img src={fidelity} alt='fidelity card' id='fidelity'/>
             <span className='fidelityText'>LOYALTY PROGRAME</span>
+            <img src={showmore}></img>
+            {/* <span className='fidelityText'>SOME BRANDS</span> */}
           </a>
         </div>
         <div id='barCenter'>
