@@ -1,0 +1,31 @@
+.perfumeList {
+    padding: 40px;
+    color: blanchedalmond;
+    font-family: 'maison';
+  }
+  
+  .perfumeList h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-bottom: 1px solid blanchedalmond;
+    padding-bottom: 10px;
+  }
+  
+.perfumeList h3{
+    text-transform: uppercase;
+    border-top: 1px solid blanchedalmond;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+  .brandItem {
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .brandItem:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
