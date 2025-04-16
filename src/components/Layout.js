@@ -1,29 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import profile from '../assets/profile.svg';
 import search from '../assets/search.svg';
-import heart from '../assets/heart.svg';
-import bag from '../assets/shopping-bag.svg'
 import fidelity from '../assets/card-clubs.svg'
+import HeartIcon from './HeartIcon';
+import BagIcon from './BagIcon';
 
 function Layout() {
+  {/* TODO: CAND ADAUG IN PRODUS IN WISHLIST SA SE UMPLE SI INIMA, NU DOAR CONTUR */}
+  const [liked, setLiked] = useState(false);
+  const [pop, setPop] = useState(false);
+
+
+  const popBag = () => {
+    setPop(true);
+    setTimeout(() => setPop(false), 500);
+  }
+
   return (
     <div>
       <div className="header">
-        {/*TODO*/}
+        {/*TODO FIDELITY INTERFACE*/}
         <div id='barLeft' className='fidelityContainer'>
-          <img src={fidelity} alt='fidelity card' id='fidelity'/>
-          <span className='fidelityText'>LOYALTY PROGRAME</span>
+          <a>
+            <img src={fidelity} alt='fidelity card' id='fidelity'/>
+            <span className='fidelityText'>LOYALTY PROGRAME</span>
+          </a>
         </div>
         <div id='barCenter'>
-          <img src={logo} alt='text logo'></img>
+          <a href='/'><img src={logo} alt='text logo'/></a>
         </div>
         <div id='barRight'>
-          <img src={search} alt='search product logo'/>
-          <img src={profile} alt='profile logo'/>
-          <img src={heart} alt='add to wishlist logo'/>
-          <img src={bag} alt='add to cart logo'/>
+          <button className='button'><img src={search} alt='search product logo'/></button>
+          <button className='button'><img src={profile} alt='profile logo'/></button>
+          <button className='button' id='heart' onClick={() => setLiked(!liked)}>
+            <HeartIcon filled={liked}/>
+          </button>
+          <button className='button' onClick={popBag}>
+            <div className={pop ? 'pop' : ''}>
+              <BagIcon/>
+            </div>
+          </button>
         </div>
       </div>
       <Outlet/>

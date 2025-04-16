@@ -20,6 +20,34 @@
     gap: 20px;
 }
 
+#barRight .button{
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+#heart svg:hover path{
+    fill: #a5173b;
+    transition: fill 0.3s ease;
+}
+
+.pop {
+    animation: pop 0.4s ease;
+}
+  
+@keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
 .fidelityContainer {
     position: relative;
   }
@@ -55,10 +83,11 @@
 }
   
 .bannerHome img {
-    border-radius: 5px;
+    border-radius: 15px;
     width: 100%;
     height: 100%;
     object-fit:cover;
+    padding: 3px;
 }
 
 .bannerContainer {
@@ -69,7 +98,6 @@
     padding: 4px;
     box-shadow:  inset  -7px -4px 52px 6px #1f1736;
     border-radius: 5px;
-    font-family: "Georgia";
     position: absolute;
     bottom: 2%;
     left: 50%;
