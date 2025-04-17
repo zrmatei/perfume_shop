@@ -5,6 +5,20 @@
   padding: 50px;
 }
 
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffebcd;
+  padding: 1.5px;
+  border-radius: 3px;
+}
+
+.footer p{
+  font-size: 15px;
+  font-family: 'maison';
+}
+
 #barLeft {
   font-family: "maison";
 }
@@ -143,11 +157,19 @@
   font-family: 'maison';
 }
 
+.bannerHomeWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 30px;
+}
+
 .bannerHome {
   position: relative;
-  width: 100%;
   height: 55vh;
   overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
 .bannerHome img {
@@ -166,7 +188,7 @@
   background-color: #0f0f0f;
   filter: brightness(93%);
   color: #ffebcd;
-  padding: 4px;
+  padding: 8px;
   box-shadow: inset -7px -4px 52px 6px #1f1736;
   outline: solid 1px blanchedalmond;
   border-radius: 25px;
@@ -175,13 +197,15 @@
   transform: translateX(-50%);
 }
 
+.brandName{
+  text-decoration: none;
+  font-family: "maison", sans-serif;
+  color: #ffebcd;
+}
+
 @font-face {
   font-family: "maison";
   src: url(../assets//maison-font.ttf);
-}
-
-.bannerContainer h2 {
-  font-family: "maison", sans-serif;
 }
 
 .underline {

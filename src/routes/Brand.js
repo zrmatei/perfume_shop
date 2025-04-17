@@ -5,8 +5,8 @@ import perfumes from "../data/perfumes";
 
 function Brand() {
     const {brandName} = useParams();
-    const brandConverter = brandName.replaceAll('-', ' ');
-    const filtered = perfumes.filter((p) => p.brand === brandConverter);
+    const brandConverter = brandName.replaceAll('-', ' ').toUpperCase();
+    const filtered = perfumes.filter((p) => p.brand.toUpperCase() === brandConverter);
 
     return(
         <div>

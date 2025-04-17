@@ -25,6 +25,7 @@ function Layout() {
   return (
     <div>
       <div className="header">
+
         {/*TODO LOYALTY INTERFACE + SHOW BRANDS MESAJ GEN ON/OFF CONTOR / SWITCH */}
         <div id="barLeft" className="fidelityContainer">
           <a href="/loyalty" className="fidelityLink">
@@ -42,6 +43,7 @@ function Layout() {
             <img src={logo} alt="text logo" />
           </a>
         </div>
+
         <div id="barRight">
           <button className="button">
             <img src={search} alt="search product logo" />
@@ -62,7 +64,9 @@ function Layout() {
             </div>
           </button>
         </div>
+
       </div>
+
       {showBrands && (
         <div className="overlay">
           <button
@@ -75,6 +79,11 @@ function Layout() {
         </div>
       )}
       <Outlet />
+
+      <div className="footer">
+        <p> &copy; VOID 2025</p>
+      </div>
+
     </div>
   );
 }

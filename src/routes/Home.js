@@ -1,30 +1,44 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import "../css/home.css";
-import banner from '../assets/home-banner.avif';
-
-const brands = ['Dior', 'Chanel', 'Tom Ford', 'Parfums de Marly'];
+import chBanner from '../assets/home-banner.avif';
+import tfBanner from '../assets/tf-banner-home.jpg'
+import rBanner from '../assets/rouge-banner-home.avif'
+import vBanner from '../assets/vr-banner-home.webp'
 
 
 function Home() {
     return(
-        <div>
+        <div className="bannerHomeWrapper">
+
             <div className="bannerHome">
-                <img src={banner}></img>
+                <img src={chBanner}></img>
                 <div className="bannerContainer">
-                    <div><h2>FOR <span className="underline">MEN</span></h2></div>
-                    <div><h2>FOR <span className="underline">WOMEN</span></h2></div>
+                    <Link className="brandName" to="/brand/chrome-hearts"><h2> ♱ CHROME <span className="underline">HEARTS ♱</span></h2></Link>
                 </div>
             </div>
-            <h1>Select a perfume</h1>
-            {brands.map((b) => {
-                const formattedName = b.replaceAll(' ', '-');
-                return (
-                    <Link key={b} to={`/brand/${formattedName}`}>
-                        <button>{b}</button>
-                    </Link>
-                )
-            })}
+
+            <div className="bannerHome">
+                <img src={tfBanner}></img>
+                <div className="bannerContainer">
+                    <Link className="brandName" to="/brand/tom-ford"><h2>TOM FORD</h2></Link>
+                </div>
+            </div>
+
+            <div className="bannerHome">
+                <img src={rBanner}></img>
+                <div className="bannerContainer">
+                    <Link className="brandName" to="/brand/maison-francis"><h2>Maison Francis Kurkdjian</h2></Link>
+                </div>
+            </div>
+
+            <div className="bannerHome">
+                <img src={vBanner}></img>
+                <div className="bannerContainer">
+                    <Link className="brandName" to="/brand/viktor-rolf"><h2>Viktor & Rolf</h2></Link>
+                </div>
+            </div>
+
         </div>
     );
 }

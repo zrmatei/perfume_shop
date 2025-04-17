@@ -19,6 +19,12 @@
     cursor: pointer;
 }
 
+.perfumeList h3:hover{
+  text-decoration: underline solid 2px;
+  padding-top: 6px;
+}
+
+
   .brandItem {
     cursor: pointer;
     transition: color 0.2s ease;
