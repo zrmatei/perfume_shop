@@ -10,10 +10,10 @@ function Brand() {
 
     return(
         <div>
-            <h2>Parfumuri {brandConverter}</h2>
+            <h2 className="perfumes">Parfumuri {brandConverter}</h2>
             <ul>
                 {filtered.map((p => (
-                    <li key={p.id}>{p.name}</li>
+                    <li key={p.id} class="perfumes">{p.name}</li>
                 )))}
             </ul>
         </div>

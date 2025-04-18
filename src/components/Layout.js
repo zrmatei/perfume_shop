@@ -8,6 +8,10 @@ import fidelity from "../assets/card-clubs.svg";
 import HeartIcon from "./HeartIcon";
 import BagIcon from "./BagIcon";
 import PerfumeList from "./BrandList";
+import SearchBar from "./SearchBar";
+import Profile from "./Profile";
+import "../css/layout.css"
+
 
 function Layout() {
   {
@@ -16,6 +20,8 @@ function Layout() {
   const [liked, setLiked] = useState(false);
   const [pop, setPop] = useState(false);
   const [showBrands, setShowBrands] = useState(false);
+  const [showPerfumes, setShowPerfumes] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   const popBag = () => {
     setPop(true);
@@ -25,7 +31,6 @@ function Layout() {
   return (
     <div>
       <div className="header">
-
         {/*TODO LOYALTY INTERFACE + SHOW BRANDS MESAJ GEN ON/OFF CONTOR / SWITCH */}
         <div id="barLeft" className="fidelityContainer">
           <a href="/loyalty" className="fidelityLink">
@@ -45,10 +50,13 @@ function Layout() {
         </div>
 
         <div id="barRight">
-          <button className="button">
+          <button
+            className="button"
+            onClick={() => setShowPerfumes(!showPerfumes)}
+          >
             <img src={search} alt="search product logo" />
           </button>
-          <button className="button">
+          <button className="button" onClick={() => setShowProfile(!showProfile)}>
             <img src={profile} alt="profile logo" />
           </button>
           <button
@@ -64,7 +72,6 @@ function Layout() {
             </div>
           </button>
         </div>
-
       </div>
 
       {showBrands && (
@@ -78,12 +85,19 @@ function Layout() {
           <PerfumeList />
         </div>
       )}
+
+      <SearchBar
+        visible={showPerfumes}
+        onClose={() => setShowPerfumes(false)}
+      />
+
+      <Profile visible={showProfile} onClose={() => setShowProfile(false)}/>
+
       <Outlet />
 
       <div className="footer">
         <p> &copy; VOID 2025</p>
       </div>
-
     </div>
   );
 }
