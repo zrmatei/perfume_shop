@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../css/home.css";
-import chBanner from '../assets/home-banner.avif';
-import tfBanner from '../assets/tf-banner-home.jpg'
-import rBanner from '../assets/rouge-banner-home.avif'
-import vBanner from '../assets/vr-banner-home.webp'
+import chBanner from '../assets/images/home-banner.avif';
+import tfBanner from '../assets/images/tf-banner-home.jpg'
+import rBanner from '../assets/images/rouge-banner-home.avif'
+import vBanner from '../assets/images/vr-banner-home.webp'
 
 
 function Home() {
@@ -28,7 +28,7 @@ function Home() {
             <div className="bannerHome">
                 <img src={rBanner}></img>
                 <div className="bannerContainer">
-                    <Link className="brandName" to="/brand/maison-francis"><h2>Maison Francis Kurkdjian</h2></Link>
+                    <Link className="brandName" to="/brand/maison-francis-kurkdjian"><h2>Maison Francis Kurkdjian</h2></Link>
                 </div>
             </div>
 

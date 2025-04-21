@@ -25,16 +25,83 @@
 }
 
 
-  .brandItem {
-    cursor: pointer;
+  .brandItem a{
     transition: color 0.2s ease;
+    text-decoration: none;
+    color: blanchedalmond;
   }
-  
-  .brandItem:hover {
-    color: #fff;
+
+  .brandItem a:hover{
     text-decoration: underline;
   }
-  
+
   .perfumes{
+    display: flex;
+    justify-content: center;
+    font-family: 'maison';
+    text-transform: uppercase;
     color: bisque;
   }
+
+  /* PENTRU LISTA DE PARFUMURI */
+  /* TODO: CAND INTRU LA UN BRAND DE PARFUMURI SI APAS SI PE LISTA DE BRANDURI
+  SA FAC CA BRANDS SA FIE PESTE CARDURILE MELE DE PE PAGINA CURENTA */
+  .gridContainer{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+  }
+  .perfumeCard {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: 'maison';
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    padding: 16px;
+    z-index: 1;
+    margin: 5px 5px 5px 5px;
+  }
+
+  .perfumeCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  .perfumeCard h4 {
+    font-size: 1rem;
+    margin: 6px;
+    color: #333;
+  }
+
+  .perfumeCard p {
+    margin: 4px;
+    color: #777;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  .perfumeCard img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .perfumeCard button {
+    margin-top: 10px;
+    background-color: #800080;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .perfumeCard button:hover {
+    background-color: #660066;
+  }
+  

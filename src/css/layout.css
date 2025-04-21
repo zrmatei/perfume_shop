@@ -165,6 +165,7 @@
     text-shadow: 0.3px 0.4px #ffebcd;
   }
   
+
   .fidelityLink:hover ~ .brandsBox {
     transform: translate(68px);
   }

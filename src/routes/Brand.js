@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import perfumes from "../data/perfumes";
+import PerfumeCard from "../components/PerfumeCard";
 
 
 function Brand() {
@@ -11,11 +12,17 @@ function Brand() {
     return(
         <div>
             <h2 className="perfumes">Parfumuri {brandConverter}</h2>
-            <ul>
+            <div className="gridContainer" >
                 {filtered.map((p => (
-                    <li key={p.id} class="perfumes">{p.name}</li>
+                    <PerfumeCard
+                    key={p.id}
+                    image={p.image}
+                    brand={p.brand}
+                    name={p.name}
+                    price={p.price}
+                    />
                 )))}
-            </ul>
+            </div>
         </div>
     )
 }

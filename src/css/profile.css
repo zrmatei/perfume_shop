@@ -79,3 +79,12 @@
   .createAccount:hover{
     animation: colorShifting forwards ease-in-out 2s;
   }
+
+  .link {
+    color: rgb(114, 40, 40);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .link:hover {
+    color: rgb(201, 12, 12);
+  }

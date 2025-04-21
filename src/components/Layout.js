@@ -7,7 +7,7 @@ import showmore from "../assets/menu-grid-o.svg";
 import fidelity from "../assets/card-clubs.svg";
 import HeartIcon from "./HeartIcon";
 import BagIcon from "./BagIcon";
-import PerfumeList from "./BrandList";
+import BrandList from "./BrandList";
 import SearchBar from "./SearchBar";
 import Profile from "./Profile";
 import "../css/layout.css"
@@ -82,7 +82,7 @@ function Layout() {
           >
             CLOSE
           </button>
-          <PerfumeList />
+          <BrandList closeOverlay={() => setShowBrands(!showBrands)}/>
         </div>
       )}
 

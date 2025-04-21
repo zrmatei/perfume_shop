@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import "./css/App.css"
 import Loyalty from "./routes/Loyalty";
 import Perfume from "./routes/Perfume";
+import AllBrands from "./routes/AllBrands";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<Home/>}/> 
           <Route path="/brand/:brandName" element={<Brand/>}/>
           <Route path="/brand/:brandName/perfumeName" element={<Perfume/>}/>
+          <Route path="/brands" element={<AllBrands/>}/>
           <Route path="/loyalty" element={<Loyalty/>}/>
         </Route>
       </Routes>  
