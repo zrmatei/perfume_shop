@@ -1,0 +1,167 @@
+[
+    {
+      "judet": "București",
+      "orase": ["București", "Voluntari"]
+    },
+    {
+      "judet": "Cluj",
+      "orase": ["Cluj-Napoca", "Florești", "Turda", "Dej"]
+    },
+    {
+      "judet": "Iași",
+      "orase": ["Iași", "Pașcani"]
+    },
+    {
+      "judet": "Constanța",
+      "orase": ["Constanța", "Medgidia", "Năvodari", "Mangalia"]
+    },
+    {
+      "judet": "Timiș",
+      "orase": ["Timișoara", "Lugoj"]
+    },
+    {
+      "judet": "Brașov",
+      "orase": ["Brașov", "Săcele", "Făgăraș"]
+    },
+    {
+      "judet": "Dolj",
+      "orase": ["Craiova"]
+    },
+    {
+      "judet": "Galați",
+      "orase": ["Galați", "Tecuci"]
+    },
+    {
+      "judet": "Bihor",
+      "orase": ["Oradea"]
+    },
+    {
+      "judet": "Prahova",
+      "orase": ["Ploiești", "Câmpina"]
+    },
+    {
+      "judet": "Brăila",
+      "orase": ["Brăila"]
+    },
+    {
+      "judet": "Arad",
+      "orase": ["Arad"]
+    },
+    {
+      "judet": "Argeș",
+      "orase": ["Pitești", "Mioveni", "Câmpulung"]
+    },
+    {
+      "judet": "Bacău",
+      "orase": ["Bacău", "Onești"]
+    },
+    {
+      "judet": "Sibiu",
+      "orase": ["Sibiu", "Mediaș"]
+    },
+    {
+      "judet": "Mureș",
+      "orase": ["Târgu Mureș", "Reghin"]
+    },
+    {
+      "judet": "Maramureș",
+      "orase": ["Baia Mare", "Sighetu Marmației", "Borșa"]
+    },
+    {
+      "judet": "Buzău",
+      "orase": ["Buzău", "Râmnicu Sărat"]
+    },
+    {
+      "judet": "Vâlcea",
+      "orase": ["Râmnicu Vâlcea"]
+    },
+    {
+      "judet": "Satu Mare",
+      "orase": ["Satu Mare"]
+    },
+    {
+      "judet": "Botoșani",
+      "orase": ["Botoșani"]
+    },
+    {
+      "judet": "Suceava",
+      "orase": ["Suceava"]
+    },
+    {
+      "judet": "Caraș-Severin",
+      "orase": ["Reșița"]
+    },
+    {
+      "judet": "Mehedinți",
+      "orase": ["Drobeta-Turnu Severin"]
+    },
+    {
+      "judet": "Neamț",
+      "orase": ["Piatra Neamț", "Roman"]
+    },
+    {
+      "judet": "Bistrița-Năsăud",
+      "orase": ["Bistrița"]
+    },
+    {
+      "judet": "Gorj",
+      "orase": ["Târgu Jiu"]
+    },
+    {
+      "judet": "Dâmbovița",
+      "orase": ["Târgoviște"]
+    },
+    {
+      "judet": "Vrancea",
+      "orase": ["Focșani"]
+    },
+    {
+      "judet": "Tulcea",
+      "orase": ["Tulcea"]
+    },
+    {
+      "judet": "Alba",
+      "orase": ["Alba Iulia", "Sebeș"]
+    },
+    {
+      "judet": "Olt",
+      "orase": ["Slatina", "Caracal"]
+    },
+    {
+      "judet": "Vaslui",
+      "orase": ["Vaslui", "Bârlad"]
+    },
+    {
+      "judet": "Călărași",
+      "orase": ["Călărași"]
+    },
+    {
+      "judet": "Giurgiu",
+      "orase": ["Giurgiu"]
+    },
+    {
+      "judet": "Ilfov",
+      "orase": ["Popești-Leordeni", "Bragadiru", "Pantelimon", "Berceni"]
+    },
+    {
+      "judet": "Hunedoara",
+      "orase": ["Deva", "Hunedoara", "Petroșani"]
+    },
+    {
+      "judet": "Sălaj",
+      "orase": ["Zalău"]
+    },
+    {
+      "judet": "Covasna",
+      "orase": ["Sfântu Gheorghe"]
+    },
+    {
+      "judet": "Harghita",
+      "orase": ["Miercurea Ciuc", "Odorheiu Secuiesc"]
+    },
+    {
+      "judet": "Ialomița",
+      "orase": ["Slobozia", "Fetești"]
+    }
+  ]
+  

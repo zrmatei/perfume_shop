@@ -45,6 +45,16 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 15px;
+    font-family: 'maison';
+
+  }
+
+  .profilePanel select{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'maison';
   }
   
   .profilePanel button {
@@ -60,6 +70,10 @@
   
   .profilePanel button:hover {
     background: #333;
+  }
+
+  .profilePanel p{
+    font-family: 'maison';
   }
 
   .createAccount{

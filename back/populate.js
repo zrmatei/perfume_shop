@@ -1,11 +1,15 @@
 import mysql from "mysql2/promise.js";
 import perfumesData from './perfumesData.js';
+import dotenv from "dotenv";
+
+
+dotenv.config();
 
 const connection = await mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Razvan2003@',
-  database: 'shop'
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASS,
+  database: process.env.DB
 });
 
 for (const p of perfumesData) {
