@@ -11,14 +11,15 @@ app.use(cors());
 app.use(bodyParser.json());
 dotenv.config();
 
-const connection = mysql.createConnection({
+
+const db = mysql.createConnection({
   host: process.env.HOST,
   user: process.env.USER,
   password: process.env.PASS,
   database: process.env.DB,
 });
 
-connection.connect((err) => {
+db.connect((err) => {
   if (err) {
     console.log("DB error: ", err);
   } else {
@@ -28,12 +29,12 @@ connection.connect((err) => {
 
 //REGISTER
 app.post("/register", (req, res) => {
-  const { email, pass, stradaNr, codPostal, oras, judet, nrTel } = req.body;
-  if (!email || !pass || !stradaNr || !codPostal || !oras || !judet || !nrTel) {
+  const { email, pass, stradaNr, codPostal, oras, judet, nrTel, nume, prenume } = req.body;
+  if (!email || !pass || !stradaNr || !codPostal || !oras || !judet || !nrTel || !nume || !prenume) {
     return res.status(400).json({ message: "Details required" });
   }
 
-  connection.query(
+  db.query(
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, results) => {
@@ -44,9 +45,9 @@ app.post("/register", (req, res) => {
       }
 
       const hPass = await bcrypt.hash(pass, 10);
-      connection.query(
-        "INSERT INTO users (email, user_pass, strada_nr, cod_postal, oras, judet, telefon) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        [email, hPass, stradaNr, codPostal, oras, judet, nrTel],
+      db.query(
+        "INSERT INTO users (email, user_pass, strada_nr, cod_postal, oras, judet, telefon, nume, prenume) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [email, hPass, stradaNr, codPostal, oras, judet, nrTel, nume, prenume],
         (err) => {
           if (err) {
             console.error("err:", err);
@@ -66,7 +67,7 @@ app.post("/login", (req, res) => {
     return res.status(400).json({ message: "Email and pass required" });
   }
 
-  connection.query(
+  db.query(
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, results) => {
@@ -81,7 +82,13 @@ app.post("/login", (req, res) => {
       const match = await bcrypt.compare(pass, user.user_pass);
 
       if (match) {
-        res.json({ message: "Login successful" });
+        const token = jwt.sign(
+          {id: user.id, email: user.email},
+          process.env.JWT_SECRET,
+          {expiresIn: "15m"}
+        )
+        res.json({message: "Login succesful", token})
+
       } else {
             res.status(400).json({ message: "Invalid credentials" });
       }
@@ -89,7 +96,7 @@ app.post("/login", (req, res) => {
   );
 });
 
-app.get("/api/verify", (req, res) => {
+app.get("/verify", (req, res) => {
     const token = req.headers.authorization?.split(" ")[1];
     if(!token){
         return res.status(401).json({message: "Token missing"});
@@ -99,6 +106,32 @@ app.get("/api/verify", (req, res) => {
     }catch(err){
         res.status(401).json({message:"Invalid token"})
     }
+})
+
+app.get("/infouser", (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]
+  if(!token){
+    return res.status(401).json({message: "Token missing"})
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const uid = decoded.id;
+
+    db.query(
+      "SELECT nume, prenume from users WHERE id = ?",
+      [uid],
+      (err, results) => {
+        if(err){
+          return res.status(500).json({message: "Server error"})
+        }else if(results.length === 0){
+          return res.status(404).json({message: "UID not found"})
+        }
+        const {nume, prenume} = results[0]
+        res.json({nume, prenume})
+      }
+    )
+  } catch (err) {
+    res.status(401).json({ message: "Invalid token" })}
 })
 
 app.listen(process.env.PORT, () => {
