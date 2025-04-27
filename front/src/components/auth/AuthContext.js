@@ -1,10 +1,14 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useCart } from "./CartContext";
+
 
 export const AuthContext = createContext();
 function AuthProvider({children}) {
   const [isLogged, setIsLogged] = useState(false)
   const [user, setUser] = useState("")
+  const [profileVisible, setProfileVisible] = useState(false);
+  const { clearCart } = useCart();
 
   useEffect(() => {
     const checkToken = async() => {
@@ -40,10 +44,20 @@ function AuthProvider({children}) {
   const logout = () => {
     localStorage.removeItem("token");
     setIsLogged(false);
+    setUser(null)
+  }
+
+  const openProfile = () => {
+    setProfileVisible(true);
+  }
+
+
+  const closeProfile = () => {
+    setProfileVisible(false);
   }
 
   return (
-    <AuthContext.Provider value={{ isLogged, user, login, logout }}>
+    <AuthContext.Provider value={{ isLogged, user, login, logout, profileVisible, openProfile, closeProfile }}>
       {children}
     </AuthContext.Provider>
   );

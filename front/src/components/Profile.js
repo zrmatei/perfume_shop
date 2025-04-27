@@ -3,6 +3,7 @@ import axios from "axios";
 import judeteOrase from "../data/ro.json";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./auth/AuthContext.js";
+import { useCart } from "./auth/CartContext.js";
 import "../css/profile.css";
 
 function Profile({ visible, onClose }) {
@@ -19,6 +20,8 @@ function Profile({ visible, onClose }) {
   const [prenume, setPrenume] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const { isLogged, user, login, logout } = useContext(AuthContext);
+  const { clearCart } = useCart();
+  
 
   useEffect(() => {
     visible
@@ -42,6 +45,7 @@ function Profile({ visible, onClose }) {
       const res = await axios.post("http://localhost:8081/login", {email,pass});
       login(res.data.token);
       navigate("/");
+      clearCart()
       onClose();
     } catch (err) {
       console.log(err);
@@ -51,6 +55,7 @@ function Profile({ visible, onClose }) {
   const handleLogout = async () => {
     logout();
     navigate("/");
+    clearCart();
   };
 
   const handleRegister = async () => {

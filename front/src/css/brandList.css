@@ -97,7 +97,9 @@
     border: none;
     padding: 10px 15px;
     border-radius: 8px;
+    margin: 1.5px;
     cursor: pointer;
+    font-family: 'maison';
     transition: background-color 0.3s ease;
   }
 

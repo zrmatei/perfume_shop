@@ -1,32 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import profile from "../assets/profile.svg";
 import search from "../assets/search.svg";
 import showmore from "../assets/menu-grid-o.svg";
 import fidelity from "../assets/card-clubs.svg";
-import HeartIcon from "./HeartIcon";
-import BagIcon from "./BagIcon";
 import BrandList from "./BrandList";
 import SearchBar from "./SearchBar";
 import Profile from "./Profile";
-import "../css/layout.css"
-
+import "../css/layout.css";
+import { useWishlist } from "./auth/WishlistContext";
+import { AuthContext } from "./auth/AuthContext";
+import WishlistOverlay from "./WishlistOverlay";
+import Cart from "./Cart";
+import { useCart } from "./auth/CartContext";
 
 function Layout() {
-  {
-    /* TODO: CAND ADAUG IN PRODUS IN WISHLIST SA SE UMPLE SI INIMA, NU DOAR CONTUR */
-  }
-  const [liked, setLiked] = useState(false);
-  const [pop, setPop] = useState(false);
   const [showBrands, setShowBrands] = useState(false);
   const [showPerfumes, setShowPerfumes] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
-
-  const popBag = () => {
-    setPop(true);
-    setTimeout(() => setPop(false), 500);
-  };
+  const { wishlist } = useWishlist();
+  const [showWishlistOverlay, setShowWishlistOverlay] = useState(false);
+  const { profileVisible, openProfile, closeProfile} = useContext(AuthContext);
+  const {toggleCartItem} = useCart();
 
   return (
     <div>
@@ -56,24 +51,17 @@ function Layout() {
           >
             <img src={search} alt="search product logo" />
           </button>
-          <button className="button" onClick={() => setShowProfile(!showProfile)}>
-            <img src={profile} alt="profile logo" />
-          </button>
           <button
             className="button"
-            id="heart"
-            onClick={() => setLiked(!liked)}
+            onClick={() => openProfile()}
           >
-            <HeartIcon filled={liked} />
+            <img src={profile} alt="profile logo" />
           </button>
-          <button className="button" onClick={popBag}>
-            <div className={pop ? "pop" : ""}>
-              <BagIcon />
-            </div>
-          </button>
+          <WishlistOverlay/>
+          <Cart/>
         </div>
       </div>
-
+      {profileVisible && <Profile visible={true} onClose={closeProfile}/>}
       {showBrands && (
         <div className="overlay">
           <button
@@ -82,7 +70,7 @@ function Layout() {
           >
             CLOSE
           </button>
-          <BrandList closeOverlay={() => setShowBrands(!showBrands)}/>
+          <BrandList closeOverlay={() => setShowBrands(!showBrands)} />
         </div>
       )}
 
@@ -91,7 +79,6 @@ function Layout() {
         onClose={() => setShowPerfumes(false)}
       />
 
-      <Profile visible={showProfile} onClose={() => setShowProfile(false)}/>
 
       <Outlet />
 
