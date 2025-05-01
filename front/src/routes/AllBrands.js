@@ -2,7 +2,6 @@ import PerfumeCard from "../components/PerfumeCard";
 import "../css/App.css"
 import "../css/brandList.css"
 import perfumes from "../data/perfumes";
-import { useParams } from "react-router";
 import { useState } from "react";
 
 function AllBrands() {

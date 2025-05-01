@@ -124,6 +124,60 @@ app.get("/infouser", requireAuth, (req, res) => {
   );
 });
 
+app.post("/checkout", requireAuth, async (req, res) => {
+  const { userid, produse, discount, total, livrare } = req.body;
+
+  if (!Array.isArray(produse) || produse.length === 0) {
+    return res.status(400).json({ msg: "No products added" });
+  }
+
+  const {
+    firstName,
+    lastName,
+    email,
+    address,
+    county,
+    city,
+    postalCode,
+    apt
+  } = livrare;
+
+  try {
+    const [orderResult] = await db.promise().query(
+      `INSERT INTO orders (userid, nume, prenume, email, stradaNr, judet, oras, codPostal, nrTel, discount, total)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        userid,
+        firstName,
+        lastName,
+        email,
+        address + (apt ? `, ${apt}` : ""),
+        county,
+        city,
+        postalCode,
+        "", 
+        discount,
+        total,
+      ]
+    );
+
+    const orderId = orderResult.insertId;
+    const values = produse.map((produs) => [orderId, produs.id, produs.price]);
+
+    await db.promise().query(
+      `INSERT INTO order_items (order_id, product_id, price)
+       VALUES ?`,
+      [values]
+    );
+
+    res.status(201).json({ msg: "Order processed" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ err: "Order not processed" });
+  }
+});
+
+
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });

@@ -3,12 +3,14 @@ import { AuthContext } from "./auth/AuthContext";
 import "../css/cart.css";
 import { useCart } from "./auth/CartContext";
 import BagIcon from "./BagIcon";
+import { useNavigate } from "react-router";
 
 function Cart() {
   const [pop, setPop] = useState(false);
   const { cart, toggleCartItem, clearCart } = useCart();
   const { openProfile } = useContext(AuthContext);
   const [showOverlay, setShowOverlay] = useState(false);
+  const navigate = useNavigate();
 
   const popBag = () => {
     setPop(true);
@@ -30,17 +32,23 @@ function Cart() {
     return items.reduce((total, item) => total + item.price, 0).toFixed(2);
   };
 
-  const handleCheckout = () => {
-    const total = calculateOrderTotal(cart)
-    if(total === "0.00"){
-        alert("INTRODU PRODUSE IN COS")
-    }else{
-        alert("TODO: CAND DAU CHECKOUT SA MA VERIFICE DACA SUNT CU TOKEN - UTILIZATOR LOGAT SAU NU");
-        setShowOverlay(false);
-        clearCart();
+  const handleCheckout = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      openProfile();
+      return;
     }
+
+    const total = calculateOrderTotal(cart);
+    if (total === "0.00") {
+      alert("INTRODU PRODUSE IN COS");
+    } else {
+      setShowOverlay(false);
+      navigate("/checkout")
+    }
+    
   };
-  
+
   useEffect(() => {
     showOverlay
       ? document.body.classList.add("stopScroll")
@@ -86,10 +94,10 @@ function Cart() {
                   <p>Empty Cart</p>
                 )}
                 <div className="cart-summary">
-                    <h3>Total: {calculateOrderTotal(cart)}</h3>
-                    <button className="checkout-btn" onClick={handleCheckout}>
-                        Checkout
-                    </button>
+                  <h3>Total: {calculateOrderTotal(cart)}</h3>
+                  <button className="checkout-btn" onClick={handleCheckout}>
+                    Checkout
+                  </button>
                 </div>
               </div>
             </div>
