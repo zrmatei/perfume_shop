@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./auth/AuthContext.js";
 import { useCart } from "./auth/CartContext.js";
 import "../css/profile.css";
+import { useWishlist } from "./auth/WishlistContext.js";
 
 function Profile({ visible, onClose }) {
   const [pressedCreateAcc, setPressedCreateAcc] = useState(false);
@@ -21,6 +22,7 @@ function Profile({ visible, onClose }) {
   const [confirmPass, setConfirmPass] = useState("");
   const { isLogged, user, login, logout } = useContext(AuthContext);
   const { clearCart } = useCart();
+  const {clearWishlist} = useWishlist();
   
 
   useEffect(() => {
@@ -46,6 +48,7 @@ function Profile({ visible, onClose }) {
       login(res.data.token);
       navigate("/");
       clearCart()
+      clearWishlist()
       onClose();
     } catch (err) {
       console.log(err);
@@ -55,7 +58,6 @@ function Profile({ visible, onClose }) {
   const handleLogout = async () => {
     logout();
     navigate("/");
-    clearCart();
   };
 
   const handleRegister = async () => {

@@ -9,22 +9,20 @@ import BrandList from "./BrandList";
 import SearchBar from "./SearchBar";
 import Profile from "./Profile";
 import "../css/layout.css";
-import { useWishlist } from "./auth/WishlistContext";
 import { AuthContext } from "./auth/AuthContext";
 import WishlistOverlay from "./WishlistOverlay";
 import Cart from "./Cart";
-import { useCart } from "./auth/CartContext";
 
 function Layout() {
   const [showBrands, setShowBrands] = useState(false);
   const [showPerfumes, setShowPerfumes] = useState(false);
-  const { wishlist } = useWishlist();
-  const [showWishlistOverlay, setShowWishlistOverlay] = useState(false);
-  const { profileVisible, openProfile, closeProfile} = useContext(AuthContext);
-  const {toggleCartItem} = useCart();
+  const { profileVisible, setProfileVisible} = useContext(AuthContext);
 
   return (
     <div>
+      <video autoPlay muted loop className="bg-video">
+        <source src={require("../assets/flowers-blooming.mp4")} type="video/mp4"></source>
+      </video>
       <div className="header">
         {/*TODO LOYALTY INTERFACE + SHOW BRANDS MESAJ GEN ON/OFF CONTOR / SWITCH */}
         <div id="barLeft" className="fidelityContainer">
@@ -53,15 +51,15 @@ function Layout() {
           </button>
           <button
             className="button"
-            onClick={() => openProfile()}
+            onClick={() => setProfileVisible(!profileVisible )}
           >
             <img src={profile} alt="profile logo" />
           </button>
-          <WishlistOverlay/>
+          <WishlistOverlay />
           <Cart/>
         </div>
       </div>
-      {profileVisible && <Profile visible={true} onClose={closeProfile}/>}
+      {profileVisible && <Profile visible={true} onClose={() => setProfileVisible(false)}/>}
       {showBrands && (
         <div className="overlay">
           <button
@@ -78,7 +76,6 @@ function Layout() {
         visible={showPerfumes}
         onClose={() => setShowPerfumes(false)}
       />
-
 
       <Outlet />
 

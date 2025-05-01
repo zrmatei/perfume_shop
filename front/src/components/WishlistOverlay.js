@@ -1,23 +1,26 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useWishlist } from "./auth/WishlistContext";
+import { useWishlist, WishlistContext } from "./auth/WishlistContext";
 import { AuthContext } from "./auth/AuthContext";
 import HeartIcon from "./HeartIcon"; 
 import "../css/wishlist.css";
+import { useNavigate } from "react-router-dom";
 
 function WishlistOverlay() {
   const { wishlist } = useWishlist();
-  const { openProfile, isLogged } = useContext(AuthContext);
+  const { setProfileVisible } = useContext(AuthContext);
   const [showOverlay, setShowOverlay] = useState(false);
   const [liked, setLiked] = useState(false);
-
+  const {toggleWishlistItem, clearWishlist} = useContext(WishlistContext);
+  
+  const navigate = useNavigate()
   const handleWishlist = (i) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      openProfile();
+      setShowOverlay(false)
+      setProfileVisible(true)
       return;
     }else{
-      // DE FACUT LOGICA LA ASTA: CAND SUNT LOGAT MUT IN COS SI ARAT ACOLO PRODUSUL, ITEM-UL IESE DIN WISH
-      console.log("Mutat în coș:", i);
+      toggleWishlistItem(i);
     }
   };
 

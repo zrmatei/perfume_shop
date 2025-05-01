@@ -9,14 +9,14 @@ import CartProvider from './components/auth/CartContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <CartProvider>
+  <WishlistProvider>
   <AuthProvider>
-    <WishlistProvider>
     <React.StrictMode>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </React.StrictMode>
-    </WishlistProvider>
   </AuthProvider>
+  </WishlistProvider>
   </CartProvider>
 );

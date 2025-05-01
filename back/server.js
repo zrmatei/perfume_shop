@@ -3,14 +3,19 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import mysql from "mysql2";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken"
+import {expressjwt} from "express-jwt"
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-dotenv.config();
 
+const requireAuth = expressjwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["HS256"]
+})
 
 const db = mysql.createConnection({
   host: process.env.HOST,
@@ -31,7 +36,7 @@ db.connect((err) => {
 app.post("/register", (req, res) => {
   const { email, pass, stradaNr, codPostal, oras, judet, nrTel, nume, prenume } = req.body;
   if (!email || !pass || !stradaNr || !codPostal || !oras || !judet || !nrTel || !nume || !prenume) {
-    return res.status(400).json({ message: "Details required" });
+    return res.status(400).json({ msg: "Details required" });
   }
 
   db.query(
@@ -39,9 +44,9 @@ app.post("/register", (req, res) => {
     [email],
     async (err, results) => {
       if (err) {
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).json({ msg: "Server error" });
       } else if (results.length > 0) {
-        return res.status(400).json({ message: "User already exists" });
+        return res.status(400).json({ msg: "User already exists" });
       }
 
       const hPass = await bcrypt.hash(pass, 10);
@@ -51,9 +56,9 @@ app.post("/register", (req, res) => {
         (err) => {
           if (err) {
             console.error("err:", err);
-            return res.status(500).json({ message: "Error creating user" });
+            return res.status(500).json({ msg: "Error creating user" });
           }
-          res.status(201).json({ message: "User created" });
+          res.status(201).json({ msg: "User created" });
         }
       );
     }
@@ -64,7 +69,7 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res) => {
   const { email, pass } = req.body;
   if (!email || !pass) {
-    return res.status(400).json({ message: "Email and pass required" });
+    return res.status(400).json({ msg: "Email and pass required" });
   }
 
   db.query(
@@ -72,10 +77,10 @@ app.post("/login", (req, res) => {
     [email],
     async (err, results) => {
       if (err) {
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).json({ msg: "Server error" });
       }
       if (results.length === 0) {
-        return res.status(400).json({ message: "Invalid credentials" });
+        return res.status(400).json({ msg: "Invalid credentials" });
       }
 
       const user = results[0];
@@ -87,52 +92,37 @@ app.post("/login", (req, res) => {
           process.env.JWT_SECRET,
           {expiresIn: "15m"}
         )
-        res.json({message: "Login succesful", token})
+        res.json({msg: "Login succesful", token})
 
       } else {
-            res.status(400).json({ message: "Invalid credentials" });
+            res.status(400).json({ msg: "Invalid credentials" });
       }
     }
   );
 });
 
-app.get("/verify", (req, res) => {
-    const token = req.headers.authorization?.split(" ")[1];
-    if(!token){
-        return res.status(401).json({message: "Token missing"});
-    }try{
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        res.json({message: "Token valid", user: decoded})
-    }catch(err){
-        res.status(401).json({message:"Invalid token"})
-    }
+app.get("/verify", requireAuth, (req, res) => {
+  res.json({msg: "Token valid", user: req.auth})
 })
 
-app.get("/infouser", (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1]
-  if(!token){
-    return res.status(401).json({message: "Token missing"})
-  }
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const uid = decoded.id;
-
-    db.query(
-      "SELECT nume, prenume from users WHERE id = ?",
-      [uid],
-      (err, results) => {
-        if(err){
-          return res.status(500).json({message: "Server error"})
-        }else if(results.length === 0){
-          return res.status(404).json({message: "UID not found"})
-        }
-        const {nume, prenume} = results[0]
-        res.json({nume, prenume})
+app.get("/infouser", requireAuth, (req, res) => {
+  const uid = req.auth.id;
+  db.query(
+    "SELECT nume, prenume FROM users WHERE id = ?",
+    [uid],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({ msg: "Server error" });
       }
-    )
-  } catch (err) {
-    res.status(401).json({ message: "Invalid token" })}
-})
+      if (results.length === 0) {
+        return res.status(404).json({ msg: "User not found" });
+      }
+
+      const { nume, prenume } = results[0];
+      res.json({ nume, prenume });
+    }
+  );
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);

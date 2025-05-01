@@ -1,13 +1,15 @@
 import { createContext, useContext, useEffect, useState  } from "react";
+import  {jwtDecode}  from "jwt-decode";
 
 export const CartContext = createContext()
+
 function getUserIdFromToken() {
     const token = localStorage.getItem("token")
     if(!token) return null;
 
     try {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        return payload.id || payload.email;
+        const {id, email} = jwtDecode(token);
+        return id || email || null
     } catch (err) {
         console.log(err)
         return null;
