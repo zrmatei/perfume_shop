@@ -4,15 +4,16 @@ import { AuthContext } from "./auth/AuthContext";
 import HeartIcon from "./HeartIcon"; 
 import "../css/wishlist.css";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "./auth/CartContext";
 
 function WishlistOverlay() {
   const { wishlist } = useWishlist();
   const { setProfileVisible } = useContext(AuthContext);
+  const {moveToCart} = useCart()
   const [showOverlay, setShowOverlay] = useState(false);
   const [liked, setLiked] = useState(false);
   const {toggleWishlistItem, clearWishlist} = useContext(WishlistContext);
   
-  const navigate = useNavigate()
   const handleWishlist = (i) => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -20,7 +21,8 @@ function WishlistOverlay() {
       setProfileVisible(true)
       return;
     }else{
-      toggleWishlistItem(i);
+      moveToCart(i)
+      toggleWishlistItem(i)
     }
   };
 

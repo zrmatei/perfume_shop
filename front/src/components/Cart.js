@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 function Cart() {
   const [pop, setPop] = useState(false);
   const { cart, toggleCartItem, clearCart } = useCart();
-  const { openProfile } = useContext(AuthContext);
+  const { setProfileVisible } = useContext(AuthContext);
   const [showOverlay, setShowOverlay] = useState(false);
   const navigate = useNavigate();
 
@@ -21,9 +21,10 @@ function Cart() {
   const handleCart = (i) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      openProfile();
-      return;
+      console.log("Token null - guest")
+      toggleCartItem(i)
     } else {
+      console.log("Token detected - user")
       toggleCartItem(i);
     }
   };
@@ -35,13 +36,13 @@ function Cart() {
   const handleCheckout = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      openProfile();
-      return;
+      console.log("Guest detected")
     }
 
     const total = calculateOrderTotal(cart);
     if (total === "0.00") {
-      alert("INTRODU PRODUSE IN COS");
+      const checkoutBtn = document.getElementById("checkout")
+      checkoutBtn.setAttribute("disabled", "disabled")
     } else {
       setShowOverlay(false);
       navigate("/checkout")
@@ -95,7 +96,7 @@ function Cart() {
                 )}
                 <div className="cart-summary">
                   <h3>Total: {calculateOrderTotal(cart)}</h3>
-                  <button className="checkout-btn" onClick={handleCheckout}>
+                  <button className="checkout-btn" id="checkout" onClick={handleCheckout}>
                     Checkout
                   </button>
                 </div>

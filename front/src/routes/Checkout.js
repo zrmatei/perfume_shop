@@ -12,7 +12,7 @@ function Checkout() {
     lastName: "",
     email: "",
     address: "",
-    phone: "",
+    phoneNo: "",
     apt: "",
     county: "",
     city: "",
@@ -34,11 +34,7 @@ function Checkout() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token")
-    if(!token){
-        alert("You need to be connected to order")
-        navigate("/profile")
-        return;
-    }
+    
     try {
         const res = await fetch("http://localhost:8081/checkout", {
           method: "POST",
@@ -49,6 +45,8 @@ function Checkout() {
           body: JSON.stringify({
             produse: cart.map((p) => ({
               id: p.id,
+              name: p.name,
+              brand: p.brand,
               price: p.price,
               quantity: p.quantity || 1,
             })),
@@ -123,9 +121,9 @@ function Checkout() {
           <label>
             Phone No.
             <input
-              name="phone"
+              name="phoneNo"
               type="text"
-              value={form.phone}
+              value={form.phoneNo}
               onChange={handleChange}
             />
           </label>

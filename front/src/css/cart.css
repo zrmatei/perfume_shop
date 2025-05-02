@@ -47,6 +47,14 @@
   border-radius: 8px;
 }
 
+.cart-count{
+  color: bisque;
+  padding-left: 3px;
+  font-size: 1rem;
+  border-radius: 3px;
+  font-family: 'maison';
+}
+
 .cart-item p,
 .cart-item h4 {
   margin: 0;

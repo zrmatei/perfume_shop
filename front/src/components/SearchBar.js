@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import perfumes from "../data/perfumes";
+import {Link} from "react-router"
+import "../css/layout.css"
 
 function SearchBar({ visible, onClose }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,6 +36,7 @@ function SearchBar({ visible, onClose }) {
 
   return (
     <div className="overlaySearchBox">
+      <div className="overlayContent">
       <input
         type="text"
         className="searchInput"
@@ -47,9 +50,9 @@ function SearchBar({ visible, onClose }) {
           {filteredResults.length > 0 ? (
             <ul>
               {filteredResults.map((p) => (
-                <li key={p.id}>
-                  <strong>{p.name}</strong> – {p.brand}
-                </li>
+                <div key={p.id} className="search-perfumes">
+                  <Link to={`/brand/${p.brand}`}>{p.name}</Link> – {p.brand}
+                </div>
               ))}
             </ul>
           ) : (
@@ -57,6 +60,7 @@ function SearchBar({ visible, onClose }) {
           )}
         </div>
       )}
+      </div>
     </div>
   );
 }

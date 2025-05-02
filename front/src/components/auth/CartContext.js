@@ -57,13 +57,20 @@ function CartProvider({children}) {
         }
     }
 
+    const moveToCart = (wishlistPerfume) => {
+        const exists = cart.find(item => item.id === wishlistPerfume.id)
+        if(!exists){
+            setCart([...cart, {...wishlistPerfume, quantity: 1}])
+        }
+    }
+
     const clearCart = () => {
         setCart([])
         localStorage.removeItem(cartKey)
     }
 
     return(
-    <CartContext.Provider value={{cart, toggleCartItem, clearCart}}>
+    <CartContext.Provider value={{cart, toggleCartItem, moveToCart, clearCart}}>
         {children}
     </CartContext.Provider>
     )
