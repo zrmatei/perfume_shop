@@ -1,35 +1,35 @@
 [
     {
-      "judet": "București",
-      "orase": ["București", "Voluntari"]
+      "judet": "Bucuresti",
+      "orase": ["Bucuresti", "Voluntari"]
     },
     {
       "judet": "Cluj",
-      "orase": ["Cluj-Napoca", "Florești", "Turda", "Dej"]
+      "orase": ["Cluj-Napoca", "Floresti", "Turda", "Dej"]
     },
     {
-      "judet": "Iași",
-      "orase": ["Iași", "Pașcani"]
+      "judet": "Iasi",
+      "orase": ["Iasi", "Pascani"]
     },
     {
-      "judet": "Constanța",
-      "orase": ["Constanța", "Medgidia", "Năvodari", "Mangalia"]
+      "judet": "Constanta",
+      "orase": ["Constanta", "Medgidia", "Navodari", "Mangalia"]
     },
     {
-      "judet": "Timiș",
-      "orase": ["Timișoara", "Lugoj"]
+      "judet": "Timis",
+      "orase": ["Timisoara", "Lugoj"]
     },
     {
-      "judet": "Brașov",
-      "orase": ["Brașov", "Săcele", "Făgăraș"]
+      "judet": "Brasov",
+      "orase": ["Brasov", "Sacele", "Fagaras"]
     },
     {
       "judet": "Dolj",
       "orase": ["Craiova"]
     },
     {
-      "judet": "Galați",
-      "orase": ["Galați", "Tecuci"]
+      "judet": "Galati",
+      "orase": ["Galati", "Tecuci"]
     },
     {
       "judet": "Bihor",
@@ -37,83 +37,83 @@
     },
     {
       "judet": "Prahova",
-      "orase": ["Ploiești", "Câmpina"]
+      "orase": ["Ploiesti", "Campina"]
     },
     {
-      "judet": "Brăila",
-      "orase": ["Brăila"]
+      "judet": "Braila",
+      "orase": ["Braila"]
     },
     {
       "judet": "Arad",
       "orase": ["Arad"]
     },
     {
-      "judet": "Argeș",
-      "orase": ["Pitești", "Mioveni", "Câmpulung"]
+      "judet": "Arges",
+      "orase": ["Pitesti", "Mioveni", "Campulung"]
     },
     {
-      "judet": "Bacău",
-      "orase": ["Bacău", "Onești"]
+      "judet": "Bacau",
+      "orase": ["Bacau", "Onesti"]
     },
     {
       "judet": "Sibiu",
-      "orase": ["Sibiu", "Mediaș"]
+      "orase": ["Sibiu", "Medias"]
     },
     {
-      "judet": "Mureș",
-      "orase": ["Târgu Mureș", "Reghin"]
+      "judet": "Mures",
+      "orase": ["Targu Mures", "Reghin"]
     },
     {
-      "judet": "Maramureș",
-      "orase": ["Baia Mare", "Sighetu Marmației", "Borșa"]
+      "judet": "Maramures",
+      "orase": ["Baia Mare", "Sighetu Marmatiei", "Borsa"]
     },
     {
-      "judet": "Buzău",
-      "orase": ["Buzău", "Râmnicu Sărat"]
+      "judet": "Buzau",
+      "orase": ["Buzau", "Ramnicu Sarat"]
     },
     {
-      "judet": "Vâlcea",
-      "orase": ["Râmnicu Vâlcea"]
+      "judet": "Valcea",
+      "orase": ["Ramnicu Valcea"]
     },
     {
       "judet": "Satu Mare",
       "orase": ["Satu Mare"]
     },
     {
-      "judet": "Botoșani",
-      "orase": ["Botoșani"]
+      "judet": "Botosani",
+      "orase": ["Botosani"]
     },
     {
       "judet": "Suceava",
       "orase": ["Suceava"]
     },
     {
-      "judet": "Caraș-Severin",
-      "orase": ["Reșița"]
+      "judet": "Caras-Severin",
+      "orase": ["Resita"]
     },
     {
-      "judet": "Mehedinți",
+      "judet": "Mehedinti",
       "orase": ["Drobeta-Turnu Severin"]
     },
     {
-      "judet": "Neamț",
-      "orase": ["Piatra Neamț", "Roman"]
+      "judet": "Neamt",
+      "orase": ["Piatra Neamt", "Roman"]
     },
     {
-      "judet": "Bistrița-Năsăud",
-      "orase": ["Bistrița"]
+      "judet": "Bistrita-Nasaud",
+      "orase": ["Bistrita"]
     },
     {
       "judet": "Gorj",
-      "orase": ["Târgu Jiu"]
+      "orase": ["Targu Jiu"]
     },
     {
-      "judet": "Dâmbovița",
-      "orase": ["Târgoviște"]
+      "judet": "Dambovita",
+      "orase": ["Targoviste"]
     },
     {
       "judet": "Vrancea",
-      "orase": ["Focșani"]
+      "orase": ["Focsani"]
     },
     {
       "judet": "Tulcea",
@@ -121,7 +121,7 @@
     },
     {
       "judet": "Alba",
-      "orase": ["Alba Iulia", "Sebeș"]
+      "orase": ["Alba Iulia", "Sebes"]
     },
     {
       "judet": "Olt",
@@ -132,8 +132,8 @@
       "orase": ["Vaslui", "Bârlad"]
     },
     {
-      "judet": "Călărași",
-      "orase": ["Călărași"]
+      "judet": "Calarasi",
+      "orase": ["Calarasi"]
     },
     {
       "judet": "Giurgiu",
@@ -141,27 +141,27 @@
     },
     {
       "judet": "Ilfov",
-      "orase": ["Popești-Leordeni", "Bragadiru", "Pantelimon", "Berceni"]
+      "orase": ["Popesti-Leordeni", "Bragadiru", "Pantelimon", "Berceni"]
     },
     {
       "judet": "Hunedoara",
-      "orase": ["Deva", "Hunedoara", "Petroșani"]
+      "orase": ["Deva", "Hunedoara", "Petrosani"]
     },
     {
-      "judet": "Sălaj",
-      "orase": ["Zalău"]
+      "judet": "Salaj",
+      "orase": ["Zalau"]
     },
     {
       "judet": "Covasna",
-      "orase": ["Sfântu Gheorghe"]
+      "orase": ["Sfantu Gheorghe"]
     },
     {
       "judet": "Harghita",
       "orase": ["Miercurea Ciuc", "Odorheiu Secuiesc"]
     },
     {
-      "judet": "Ialomița",
-      "orase": ["Slobozia", "Fetești"]
+      "judet": "Ialomita",
+      "orase": ["Slobozia", "Fetesti"]
     }
   ]
   

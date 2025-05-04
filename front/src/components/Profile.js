@@ -45,7 +45,7 @@ function Profile({ visible, onClose }) {
   const handleLogin = async () => {
     try {
       const res = await axios.post("http://localhost:8081/login", {email,pass});
-      login(res.data.token);
+      await login(res.data.token);
       navigate("/");
       clearCart()
       clearWishlist()

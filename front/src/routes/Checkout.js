@@ -50,7 +50,6 @@ function Checkout() {
               price: p.price,
               quantity: p.quantity || 1,
             })),
-            discount: 0,
             total: parseFloat(total),
             livrare: form
           }),

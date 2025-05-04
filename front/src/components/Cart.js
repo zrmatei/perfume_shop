@@ -95,6 +95,10 @@ function Cart() {
                   <p>Empty Cart</p>
                 )}
                 <div className="cart-summary">
+                  <div className="voucher-wrapper">
+                    <input name="voucherCode" type="text" id="voucher-zone"/>
+                    <button className="apply-code-btn">Apply Code</button>
+                  </div>
                   <h3>Total: {calculateOrderTotal(cart)}</h3>
                   <button className="checkout-btn" id="checkout" onClick={handleCheckout}>
                     Checkout

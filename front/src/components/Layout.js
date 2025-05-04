@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import profile from "../assets/profile.svg";
 import search from "../assets/search.svg";
@@ -16,7 +16,18 @@ import Cart from "./Cart";
 function Layout() {
   const [showBrands, setShowBrands] = useState(false);
   const [showPerfumes, setShowPerfumes] = useState(false);
-  const { profileVisible, setProfileVisible} = useContext(AuthContext);
+  const { profileVisible, setProfileVisible, isAdmin} = useContext(AuthContext);
+  const navigate = useNavigate()
+
+  const handleLoyalty = (e) => {
+    e.preventDefault()
+    const token = localStorage.getItem("token")
+    if(!token){
+        setProfileVisible(true)
+    }else{
+        navigate("/loyalty")
+    }
+  }
 
   return (
     <div>
@@ -26,7 +37,7 @@ function Layout() {
       <div className="header">
         {/*TODO LOYALTY INTERFACE + SHOW BRANDS MESAJ GEN ON/OFF CONTOR / SWITCH */}
         <div id="barLeft" className="fidelityContainer">
-          <a href="/loyalty" className="fidelityLink">
+          <a href="/loyalty" className="fidelityLink" onClick={handleLoyalty}>
             <img src={fidelity} alt="fidelity card" id="fidelity" />
             <span className="fidelityText">LOYALTY PROGRAME</span>
           </a>
@@ -57,6 +68,11 @@ function Layout() {
           </button>
           <WishlistOverlay />
           <Cart/>
+          {isAdmin && (
+            <button className="admin-panel" onClick={() => navigate("/admin")}>
+            Admin Panel
+          </button>
+          )}
         </div>
       </div>
       {profileVisible && <Profile visible={true} onClose={() => setProfileVisible(false)}/>}

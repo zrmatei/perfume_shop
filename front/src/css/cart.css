@@ -113,6 +113,34 @@
   background-color: #444;
 }
 
+.apply-code-btn {
+  padding: 10px 20px;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.voucher-wrapper{
+  display: flex;
+  column-gap: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+#voucher-zone{
+  height: inherit;
+  border-radius: 8px;
+  font-family: inherit;
+  padding: 5px;
+  border:#222 1px solid;
+}
+.apply-code-btn:hover {
+  background-color: #444;
+}
+
 .pop {
   animation: pop 0.4s ease;
 }
