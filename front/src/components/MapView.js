@@ -6,11 +6,26 @@ import geo from "../data/geo.json"
 import { useEffect, useState } from "react";
 
 const getColor = (revenue) => {
-    return revenue > 30000 ? "#084081" :
-           revenue > 20000 ? "#0868ac" :
-           revenue > 10000 ? "#2b8cbe" :
-           revenue > 5000  ? "#4eb3d3" :
-                             "#ccece6";
+  let color;
+  switch (true) {
+    case revenue > 30000:
+      color = "#208108";
+      break;
+    case revenue > 20000:
+      color = "#0868ac";
+      break;
+    case revenue > 10000:
+      color = "#522bbe";
+      break;
+    case revenue > 5000:
+      color = "#cfd34e";
+    case revenue > 0 && revenue < 5000:
+      color = "#911326"
+      break;
+    default:
+      color = "#ccece6";
+  }
+  return color;
 };
 
 function MapView() {

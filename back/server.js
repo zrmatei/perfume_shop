@@ -166,7 +166,6 @@ app.get("/infouser", requireAuth, (req, res) => {
 
 app.post("/generate-voucher", requireAuth, async (req, res) => {
   const uid = req.auth.id;
-  const percent = 5;
   const requiredPoints = 1500;
 
   try {
@@ -181,12 +180,11 @@ app.post("/generate-voucher", requireAuth, async (req, res) => {
     }
 
     const code = genVoucherCode();
-    const discountValue = (requiredPoints * (percent / 100)).toFixed(2);
 
     await db.promise().query(
-      `INSERT INTO vouchers (code, percent, discount_value, expires_at)
-       VALUES (?, ?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))`,
-      [code, percent, discountValue]
+      `INSERT INTO vouchers (code, percent, expires_at, is_used)
+       VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), FALSE)`,
+      [code, percent]
     );
 
     await db.promise().query(
@@ -196,13 +194,33 @@ app.post("/generate-voucher", requireAuth, async (req, res) => {
       [requiredPoints, uid]
     );
 
-    res.json({ code, percent, discount_value: discountValue });
+    res.json({ code, percent});
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: "Server error while generating voucher" });
   }
 });
 
+app.post("/check-voucher", async (req, res) => {
+  const {discountCode} = req.body
+
+  if(!discountCode){
+    return res.status(400).json({msg: "Enter a code"})
+  }
+  try {
+    const [rows] = await db.promise().query(`
+      SELECT percent from vouchers
+      WHERE code = ? AND expires_at > NOW() AND is_used = FALSE`,
+    [discountCode])
+    if(rows.length === 0){
+      return res.status(400).json({msg: "Invalid or expired token"})
+    }
+    return res.json({percent: rows[0].percent})
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({msg: "ERR"})
+  }
+})
 
 app.get("/analytics", requireAuth, async(req, res) => {
   try {
@@ -272,12 +290,11 @@ app.post("/checkout", async (req, res) => {
   let discount = 0;
   if (discountCode) {
     const [rows] = await db.promise().query(
-      `SELECT value FROM vouchers
+      `SELECT percent FROM vouchers
     WHERE code = ? AND expires_at > NOW() AND is_used = FALSE`,
       [discountCode]
     );
     if (rows.length > 0) {
-      discount = rows[0].value;
       await db.promise().query(
         `UPDATE vouchers
       SET is_used = TRUE
@@ -363,7 +380,7 @@ app.post("/checkout", async (req, res) => {
         ${produse.map((p) => `<li>${p.name} - ${p.price} lei</li>`).join("")}
       </ul>
       <p><b>Total:</b> ${total} lei<br/>
-      <b>Discount:</b> ${discount} lei</p>
+      <b>Discount:</b> ${discount} lei (${discountCode})</p>
       <p><b>Address:</b> ${address}${
         apt ? ", " + apt : ""
       }, ${city}, ${county}, ${postalCode}</p></br>

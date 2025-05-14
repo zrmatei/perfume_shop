@@ -9,6 +9,9 @@ function Cart() {
   const [pop, setPop] = useState(false);
   const { cart, toggleCartItem, clearCart } = useCart();
   const { setProfileVisible } = useContext(AuthContext);
+  const [voucher, setVoucher] = useState("");
+  const [discountPercent, setDiscountPercent] = useState(0);
+  const [voucherErr, setVoucherErr] = useState("");
   const [showOverlay, setShowOverlay] = useState(false);
   const navigate = useNavigate();
 
@@ -20,35 +23,52 @@ function Cart() {
 
   const handleCart = (i) => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Token null - guest")
-      toggleCartItem(i)
-    } else {
-      console.log("Token detected - user")
-      toggleCartItem(i);
-    }
+    toggleCartItem(i);
+    console.log(token ? "Token detec - user" : "Token null - guest");
   };
 
   const calculateOrderTotal = (items) => {
-    return items.reduce((total, item) => total + item.price, 0).toFixed(2);
+    const total = items.reduce((total, item) => total + item.price, 0);
+    const discount = total * (discountPercent / 100);
+    const finalDiscount = total - discount;
+    return {
+      total: total.toFixed(2),
+      finalDiscount: finalDiscount.toFixed(2),
+      discount: discount.toFixed(2),
+    };
   };
 
-  const handleCheckout = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.log("Guest detected")
-    }
 
-    const total = calculateOrderTotal(cart);
-    if (total === "0.00") {
-      const checkoutBtn = document.getElementById("checkout")
-      checkoutBtn.setAttribute("disabled", "disabled")
-    } else {
-      setShowOverlay(false);
-      navigate("/checkout")
+  const applyCode = async () => {
+    try {
+      const res = await fetch("http://localhost:8081/check-voucher", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ discountCode: voucher }),
+      });
+      if (!res.ok) {
+        setVoucherErr("Can't update cart total");
+        setDiscountPercent(0);
+        localStorage.removeItem("discountPercent")
+        localStorage.removeItem("voucherCode")
+        return;
+      }
+      const { percent } = await res.json();
+      setDiscountPercent(percent);
+      localStorage.setItem("discountPercent", percent)
+      localStorage.setItem("voucherCode", voucher)
+      setVoucherErr("");
+    } catch (err) {
+      console.error(err);
     }
-    
   };
+
+  const goToCheckout = () => {
+    setShowOverlay(false)
+    navigate("/checkout")
+  }
 
   useEffect(() => {
     showOverlay
@@ -96,11 +116,24 @@ function Cart() {
                 )}
                 <div className="cart-summary">
                   <div className="voucher-wrapper">
-                    <input name="voucherCode" type="text" id="voucher-zone"/>
-                    <button className="apply-code-btn">Apply Code</button>
+                    <input
+                      name="voucherCode"
+                      type="text"
+                      id="voucher-zone"
+                      value={voucher}
+                      onChange={(e) => setVoucher(e.target.value)}
+                    />
+                    <button className="apply-code-btn" onClick={applyCode}>
+                      Apply Code
+                    </button>
                   </div>
-                  <h3>Total: {calculateOrderTotal(cart)}</h3>
-                  <button className="checkout-btn" id="checkout" onClick={handleCheckout}>
+                  <h3>Total: {calculateOrderTotal(cart).finalDiscount}</h3>
+                  <button
+                    className="checkout-btn"
+                    id="checkout"
+                    onClick={goToCheckout}
+                    disabled={cart.length === 0}
+                  >
                     Checkout
                   </button>
                 </div>

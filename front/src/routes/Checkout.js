@@ -18,16 +18,19 @@ function Checkout() {
     city: "",
     postalCode: ""
   })
-
+  const discountPercent = parseFloat(localStorage.getItem("discountPercent" || 0))
+  const voucher = localStorage.getItem("voucherCode" || null)
+  
   const handleChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value})
   }
 
   const calculateTotal = () => {
     const subtotal = cart.reduce((total, item) => total + item.price, 0)
+    const discount = subtotal * (discountPercent / 100)
     const shipping = 15
-    const total = subtotal + shipping
-    return {subtotal, shipping, total}
+    const total = subtotal -  discount + shipping
+    return {subtotal, discount, shipping, total}
   }
   const {subtotal, shipping, total} = calculateTotal()
 
@@ -51,12 +54,15 @@ function Checkout() {
               quantity: p.quantity || 1,
             })),
             total: parseFloat(total),
+            discountCode: voucher,
             livrare: form
           }),
         });
         if (res.ok) {
           console.log("Order placed");
           clearCart();
+          localStorage.removeItem("discountPercent")
+          localStorage.removeItem("voucherCode")
           navigate("/");
         } else {
           console.log("Order error!!");
