@@ -1,8 +1,8 @@
 .bannerHomeWrapper {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding: 30px;
+  gap: 50px;
+  padding: 50px;
 }
 
 .bannerHome {
@@ -47,21 +47,4 @@
 @font-face {
   font-family: "maison";
   src: url(../assets//maison-font.ttf);
-}
-
-.underline {
-  position: relative;
-}
-
-.underline:after {
-  content: "";
-  position: absolute;
-  top: 95%;
-  width: 100%;
-  aspect-ratio: 3/1;
-  left: 50%;
-  border-radius: 50%;
-  transform: translate(-50%, 0);
-  border: 3px solid blanchedalmond;
-  clip-path: polygon(0 0, 50% 50%, 100% 0);
 }

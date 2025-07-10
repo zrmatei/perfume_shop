@@ -141,5 +141,4 @@ const perfumes = [
 
 ];
 
-
 export default perfumes;

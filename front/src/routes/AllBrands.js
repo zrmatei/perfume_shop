@@ -1,28 +1,48 @@
 import PerfumeCard from "../components/PerfumeCard";
 import "../css/App.css"
 import "../css/brandList.css"
-import perfumes from "../data/perfumes";
-import { useState } from "react";
+import images from "../data/images";
+import { useEffect, useState } from "react";
 
 function AllBrands() {
-    const [sortedPerfumes, setSortedPerfumes] = useState([...perfumes]);
+  const [perfumes, setPerfumes] = useState([]);
+  const [sortedPerfumes, setSortedPerfumes] = useState([]);
 
+  useEffect(() => {
+    const fetchPerfumes = async () => {
+      try {
+        const res = await fetch("http://localhost:8081/info-perfumes");
+        const data = await res.json();
 
-    const sorter = (e) =>{
-    if(e.target.value === "asc-by-name"){
-        const sortByNameASC = [...perfumes].sort((a, b) => a.name.localeCompare(b.name))
-        setSortedPerfumes(sortByNameASC)
-    }else if(e.target.value === "asc-by-price"){
-        const sortByPriceASC = [...perfumes].sort((a, b) => a.price - b.price)
-        setSortedPerfumes(sortByPriceASC)
-    }else if(e.target.value === "desc-by-name"){
-        const sortByNameDESC = [...perfumes].sort((a, b) => a.name.localeCompare(b.name)).reverse()
-        setSortedPerfumes(sortByNameDESC)
-    }else{
-        const sortByPriceDESC = [...perfumes].sort((a, b) => a.price - b.price).reverse()
-        setSortedPerfumes(sortByPriceDESC)
+        const finalData = data.map(p => {
+            const key = `${p.brand}|${p.prod_name}`
+            return {...p, image: images[key] || null}
+        })
+        setPerfumes(finalData);
+        setSortedPerfumes(finalData);
+      } catch (err) {
+        console.error("Error loading perfumes", err);
+      }
+    };
+    fetchPerfumes();
+  }, []);
+
+  const sorter = (e) => {
+    const value = e.target.value;
+    let sorted = [...perfumes];
+
+    if (value === "asc-by-name") {
+      sorted.sort((a, b) => a.brand.localeCompare(b.brand));
+    } else if (value === "asc-by-price") {
+      sorted.sort((a, b) => a.price - b.price);
+    } else if (value === "desc-by-name") {
+      sorted.sort((a, b) => b.brand.localeCompare(a.brand));
+    } else if (value === "desc-by-price") {
+      sorted.sort((a, b) => b.price - a.price);
     }
-}
+
+    setSortedPerfumes(sorted);
+  };
 
     return(
         <div>
@@ -41,8 +61,9 @@ function AllBrands() {
                     id={p.id}
                     image={p.image}
                     brand={p.brand}
-                    name={p.name}
+                    prod_name={p.prod_name}
                     price={p.price}
+                    stock={p.stock}
                     />
                 )))}
             </div>

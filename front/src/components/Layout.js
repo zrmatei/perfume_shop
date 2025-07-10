@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { motion, scale } from "framer-motion";
 import logo from "../assets/logo.svg";
 import profile from "../assets/profile.svg";
 import search from "../assets/search.svg";
@@ -30,7 +31,7 @@ function Layout() {
   }
 
   return (
-    <div>
+    <div className="page-wrapper">
       <video autoPlay muted loop className="bg-video">
         <source src={require("../assets/flowers-blooming.mp4")} type="video/mp4"></source>
       </video>
@@ -69,9 +70,12 @@ function Layout() {
           <WishlistOverlay />
           <Cart/>
           {isAdmin && (
-            <button className="admin-panel" onClick={() => navigate("/admin")}>
-            Admin Panel
-          </button>
+            <motion.button
+            whileHover={{scale: 0.9}}
+            whileTap={{scale: 0.7}}
+            className="admin-panel" onClick={() => navigate("/admin")}>
+            <div className="panel-text">Admin Panel</div>
+          </motion.button>
           )}
         </div>
       </div>
@@ -90,10 +94,12 @@ function Layout() {
 
       <SearchBar
         visible={showPerfumes}
-        onClose={() => setShowPerfumes(false)}
+        onClose={() => setShowPerfumes(!showPerfumes)}
       />
 
-      <Outlet />
+      <div className="main-content">
+        <Outlet />
+      </div>
 
       <div className="footer">
         <p> &copy; VOID 2025</p>

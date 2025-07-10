@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import perfumes from "../data/perfumes";
+import images from "../data/images";
 import PerfumeCard from "../components/PerfumeCard";
-import {useWishlist} from "../components/auth/WishlistContext";
-
 
 function Brand() {
     const {brandName} = useParams();
     const brandConverter = brandName.replaceAll('-', ' ').toUpperCase();
-    const filtered = perfumes.filter((p) => p.brand.toUpperCase() === brandConverter);
-    const {wishlist, showWishlist} = useWishlist()
+    const [filtered, setFiltered] = useState([])
+    
+    useEffect(() => {
+      const fetchPerfumes = async () => {
+        try {
+          const res = await fetch("http://localhost:8081/info-perfumes");
+          const data = await res.json();
+          const finalData = data.filter((p) => p.brand.toUpperCase() === brandConverter)
+          .map((p) => {
+            const key = `${p.brand}|${p.prod_name}`;
+            return {...p, image: images[key] || null}
+          });
+          setFiltered(finalData);
+        } catch (err) {
+          console.error("Loading perfumes failed");
+        }
+      };
+      fetchPerfumes()
+    }, [brandConverter]);
 
     return(
         <div>
@@ -21,8 +36,9 @@ function Brand() {
                     id={p.id}
                     image={p.image}
                     brand={p.brand}
-                    name={p.name}
+                    prod_name={p.prod_name}
                     price={p.price}
+                    stock={p.stock}
                     />
                 )))}
             </div>

@@ -25,6 +25,13 @@
     gap: 1rem;
     position: relative;
   }
+
+  #user-profile{
+    font-family: 'maison';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
   @keyframes slideIn {
     to {
@@ -102,3 +109,18 @@
   .link:hover {
     color: rgb(201, 12, 12);
   }
+
+
+.pass-err-text {
+  color: red;
+  font-size: 12px;
+  margin: 5px 0 10px;
+  padding-left: 5px;
+}
+
+.pass-err-text.hidden {
+  display: none;
+}
+
+
+

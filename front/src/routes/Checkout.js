@@ -18,7 +18,7 @@ function Checkout() {
     city: "",
     postalCode: ""
   })
-  const discountPercent = parseFloat(localStorage.getItem("discountPercent" || 0))
+  const discountPercent = parseFloat(localStorage.getItem("discountPercent")) || 0
   const voucher = localStorage.getItem("voucherCode" || null)
   
   const handleChange = (e) => {
@@ -26,7 +26,7 @@ function Checkout() {
   }
 
   const calculateTotal = () => {
-    const subtotal = cart.reduce((total, item) => total + item.price, 0)
+    const subtotal = cart.reduce((total, item) => total + Number(item.price || 0), 0)
     const discount = subtotal * (discountPercent / 100)
     const shipping = 15
     const total = subtotal -  discount + shipping
@@ -130,6 +130,7 @@ function Checkout() {
               type="text"
               value={form.phoneNo}
               onChange={handleChange}
+              required
             />
           </label>
 

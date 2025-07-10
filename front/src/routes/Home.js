@@ -6,7 +6,7 @@ import tfBanner from '../assets/images/tf-banner-home.jpg'
 import rBanner from '../assets/images/rouge-banner-home.avif'
 import vBanner from '../assets/images/vr-banner-home.webp'
 import {m, motion} from "motion/react"
-
+import Chatbot from "../components/Chatbot";
 
 function Home() {
     return(
@@ -16,10 +16,10 @@ function Home() {
             initial={{opacity:0, y: 100}}
             whileInView={{opacity: 1, y:0}}
             transition={{duration:0.5, ease:"easeOut"}}
-            viewport={{once:false, amount:0.5}}>
+            viewport={{once:false, amount:0.3}}>
                 <img src={chBanner}></img>
                 <div className="bannerContainer">
-                    <Link className="brandName" to="/brand/chrome-hearts"><h2> ♱ CHROME <span className="underline">HEARTS ♱</span></h2></Link>
+                    <Link className="brandName" to="/brand/chrome-hearts"><h2> ♱ CHROME HEARTS ♱</h2></Link>
                 </div>
             </motion.div>
 
@@ -27,7 +27,7 @@ function Home() {
             initial={{opacity:0, y: 100}}
             whileInView={{opacity: 1, y:0}}
             transition={{duration:0.5, ease:"easeOut"}}
-            viewport={{once:false, amount:0.5}}>
+            viewport={{once:false, amount:0.3}}>
                 <img src={tfBanner}></img>
                 <div className="bannerContainer">
                     <Link className="brandName" to="/brand/tom-ford"><h2>TOM FORD</h2></Link>
@@ -38,7 +38,7 @@ function Home() {
             initial={{opacity:0, y: 100}}
             whileInView={{opacity: 1, y:0}}
             transition={{duration:0.5, ease:"easeOut"}}
-            viewport={{once:false, amount:0.5}}>
+            viewport={{once:false, amount:0.3}}>
                 <img src={rBanner}></img>
                 <div className="bannerContainer">
                     <Link className="brandName" to="/brand/maison-francis-kurkdjian"><h2>Maison Francis Kurkdjian</h2></Link>
@@ -49,13 +49,14 @@ function Home() {
             initial={{opacity:0, y: 100}}
             whileInView={{opacity: 1, y:0}}
             transition={{duration:0.5, ease:"easeOut"}}
-            viewport={{once:false, amount:0.5}}>
+            viewport={{once:false, amount:0.3}}>
                 <img src={vBanner}></img>
                 <div className="bannerContainer">
                     <Link className="brandName" to="/brand/viktor-rolf"><h2>Viktor & Rolf</h2></Link>
                 </div>
             </motion.div>
 
+            <Chatbot/>
         </div>
     );
 }

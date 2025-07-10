@@ -28,7 +28,7 @@ function Cart() {
   };
 
   const calculateOrderTotal = (items) => {
-    const total = items.reduce((total, item) => total + item.price, 0);
+    const total = items.reduce((total, item) => total + Number(item.price || 0), 0);
     const discount = total * (discountPercent / 100);
     const finalDiscount = total - discount;
     return {
@@ -99,9 +99,9 @@ function Cart() {
                 {cart.length > 0 ? (
                   cart.map((i) => (
                     <div key={i.id} className="cart-item">
-                      <img src={i.image} alt={i.name} />
+                      <img src={i.image} alt={i.prod_name} />
                       <p>{i.brand}</p>
-                      <h4>{i.name}</h4>
+                      <h4>{i.prod_name}</h4>
                       <p>{i.price} lei</p>
                       <button
                         className="remove-from-cart-btn"

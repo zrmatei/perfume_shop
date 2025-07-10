@@ -51,7 +51,7 @@ function SearchBar({ visible, onClose }) {
             <ul>
               {filteredResults.map((p) => (
                 <div key={p.id} className="search-perfumes">
-                  <Link to={`/brand/${p.brand}`}>{p.name}</Link> – {p.brand}
+                  <Link to={`/brand/${p.brand}`} onClick={onClose}>{p.name}</Link> – {p.brand}
                 </div>
               ))}
             </ul>

@@ -5,11 +5,13 @@ import App from './App';
 import AuthProvider from './components/auth/AuthContext';
 import WishlistProvider from './components/auth/WishlistContext';
 import CartProvider from './components/auth/CartContext';
+import ChatbotProvider from './components/auth/ChatbotContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <CartProvider>
   <WishlistProvider>
+  <ChatbotProvider>
   <AuthProvider>
     <React.StrictMode>
       <BrowserRouter>
@@ -17,6 +19,7 @@ root.render(
       </BrowserRouter>
     </React.StrictMode>
   </AuthProvider>
+  </ChatbotProvider>
   </WishlistProvider>
   </CartProvider>
 );

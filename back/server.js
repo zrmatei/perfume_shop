@@ -7,6 +7,8 @@ import jwt from "jsonwebtoken";
 import { expressjwt } from "express-jwt";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
+import { GoogleGenAI } from "@google/genai";
+import {createPrompt} from "./perfumesData.js"
 
 dotenv.config();
 const app = express();
@@ -34,6 +36,8 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const genAI = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY})
+
 function genVoucherCode() {
   const random = Math.random().toString(36).substring(2, 8);
   let voucherCode = "";
@@ -54,28 +58,8 @@ db.connect((err) => {
 
 //REGISTER
 app.post("/register", (req, res) => {
-  const {
-    email,
-    pass,
-    stradaNr,
-    codPostal,
-    oras,
-    judet,
-    nrTel,
-    nume,
-    prenume,
-  } = req.body;
-  if (
-    !email ||
-    !pass ||
-    !stradaNr ||
-    !codPostal ||
-    !oras ||
-    !judet ||
-    !nrTel ||
-    !nume ||
-    !prenume
-  ) {
+  const {email,pass,stradaNr,codPostal,oras,judet,nrTel,nume,prenume,} = req.body;
+  if ( !email || !pass || !stradaNr || !codPostal || !oras || !judet || !nrTel || !nume || !prenume) {
     return res.status(400).json({ msg: "Details required" });
   }
 
@@ -253,6 +237,15 @@ app.get("/analytics/judete", async(req, res) => {
   }
 })
 
+app.get("/info-perfumes", async (req, res) => {
+  try {
+    const [rows] = await db.promise().query("SELECT * FROM products")
+    res.json(rows)
+  } catch (err) {
+    res.status(500).json({msg: "Err parfumes"})
+  }
+})
+
 app.post("/checkout", async (req, res) => {
   let userid = null;
   let userEmail = null;
@@ -340,23 +333,31 @@ app.post("/checkout", async (req, res) => {
       produs.name,
       produs.brand,
       produs.price,
+      produs.quantity
     ]);
 
     await db.promise().query(
-      `INSERT INTO order_items (order_id, product_id, product_name, product_brand, price)
+      `INSERT INTO order_items (order_id, product_id, product_name, product_brand, price, quantity)
        VALUES ?`,
       [values]
     );
 
+    for(const produs of produse){
+      await db.promise().query(
+        'UPDATE products SET stock = stock - ? WHERE id = ?',
+        [produs.quantity, produs.id]
+      );
+    }
+
     const prodList = produse
-      .map((p) => `- ${p.name} ${p.brand} (${p.price} lei)`)
+      .map((p) => `- ${p.name} ${p.brand} x${p.quantity} (${p.price} lei fiecare)`)
       .join("\n");
     const mail = {
       from: '"Void" <alice.fadel@ethereal.email>',
       to: finalEmail,
       subject: "Order confirmed",
       text: `
-      Salut!
+      Hey!
       Thank you for shopping with us! Here are the billing details:
 
       Order #${orderId}
@@ -377,7 +378,7 @@ app.post("/checkout", async (req, res) => {
       <p>Thank you for shopping with us! Here are the billing details:</p>
       <p><b>Order #${orderId}</b></p>
       <ul>
-        ${produse.map((p) => `<li>${p.name} - ${p.price} lei</li>`).join("")}
+        ${produse.map((p) => `<li>${p.name} x${p.quantity} - ${p.price} lei</li>`).join("")}
       </ul>
       <p><b>Total:</b> ${total} lei<br/>
       <b>Discount:</b> ${discount} lei (${discountCode})</p>
@@ -394,6 +395,38 @@ app.post("/checkout", async (req, res) => {
     res.status(500).json({ err: "Order not processed" });
   }
 });
+
+app.post("/chatbot", async (req, res) => {
+  const { msg } = req.body;
+
+  if (!msg) return res.status(400).json({ msg: "Enter msg" });
+
+  try {
+    const prompt = createPrompt(msg)
+    const result = await genAI.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: prompt }],
+        },
+      ],
+    });
+
+    const response = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!response) {
+      console.error("Empty or malformed Gemini response:", result);
+      return res.status(500).json({ msg: "Empty response from Gemini API" });
+    }
+
+    res.json({ response });
+  } catch (err) {
+    console.error("Gemini API error", err);
+    res.status(500).json({ msg: "Err Gemini API" });
+  }
+});
+
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
