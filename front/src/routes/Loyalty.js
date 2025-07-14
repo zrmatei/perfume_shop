@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "../css/loyalty.css"
 import {motion} from "motion/react"
-import { AuthContext } from "../components/auth/AuthContext";
+import { AuthContext } from "../components/context/AuthContext";
 import axios from "axios";
 
 

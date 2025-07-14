@@ -112,7 +112,13 @@
     background-color: #660066;
   }
   
-
+.perfumeCard select{
+  padding: 2.5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'maison';
+}
 
 /* ALL BRANDS */
 #sort-options{

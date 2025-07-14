@@ -10,7 +10,7 @@ import BrandList from "./BrandList";
 import SearchBar from "./SearchBar";
 import Profile from "./Profile";
 import "../css/layout.css";
-import { AuthContext } from "./auth/AuthContext";
+import { AuthContext } from "./context/AuthContext";
 import WishlistOverlay from "./WishlistOverlay";
 import Cart from "./Cart";
 

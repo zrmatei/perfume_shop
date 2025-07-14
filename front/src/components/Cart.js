@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
-import { AuthContext } from "./auth/AuthContext";
+import { AuthContext } from "./context/AuthContext";
 import "../css/cart.css";
-import { useCart } from "./auth/CartContext";
+import { useCart } from "../components/context/CartContext";
 import BagIcon from "./BagIcon";
 import { useNavigate } from "react-router";
 
 function Cart() {
   const [pop, setPop] = useState(false);
-  const { cart, toggleCartItem, clearCart } = useCart();
+  const { cart, toggleCartItem, removeFromCart } = useCart();
   const { setProfileVisible } = useContext(AuthContext);
   const [voucher, setVoucher] = useState("");
   const [discountPercent, setDiscountPercent] = useState(0);
@@ -28,7 +28,7 @@ function Cart() {
   };
 
   const calculateOrderTotal = (items) => {
-    const total = items.reduce((total, item) => total + Number(item.price || 0), 0);
+    const total = items.reduce((total, item) => total + Number(item.price || 0) * (item.quantity || 1), 0);
     const discount = total * (discountPercent / 100);
     const finalDiscount = total - discount;
     return {
@@ -49,10 +49,11 @@ function Cart() {
         body: JSON.stringify({ discountCode: voucher }),
       });
       if (!res.ok) {
-        setVoucherErr("Can't update cart total");
+        setVoucherErr("Voucher invalid or expired");
         setDiscountPercent(0);
         localStorage.removeItem("discountPercent")
         localStorage.removeItem("voucherCode")
+        setTimeout(() => setVoucherErr(""), 2000)
         return;
       }
       const { percent } = await res.json();
@@ -102,10 +103,11 @@ function Cart() {
                       <img src={i.image} alt={i.prod_name} />
                       <p>{i.brand}</p>
                       <h4>{i.prod_name}</h4>
+                      <p>x{i.quantity}</p>
                       <p>{i.price} lei</p>
                       <button
                         className="remove-from-cart-btn"
-                        onClick={() => handleCart(i)}
+                        onClick={() => removeFromCart(i.id)}
                       >
                         REMOVE
                       </button>
@@ -127,6 +129,7 @@ function Cart() {
                       Apply Code
                     </button>
                   </div>
+                  {voucherErr && <p className="voucher-err-text">{voucherErr}</p>}
                   <h3>Total: {calculateOrderTotal(cart).finalDiscount}</h3>
                   <button
                     className="checkout-btn"

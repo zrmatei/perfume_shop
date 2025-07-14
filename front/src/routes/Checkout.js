@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../css/checkout.css"
-import { useCart } from "../components/auth/CartContext";
+import { useCart } from "../components/context/CartContext";
 import { useNavigate } from "react-router";
 
 function Checkout() {
@@ -26,7 +26,7 @@ function Checkout() {
   }
 
   const calculateTotal = () => {
-    const subtotal = cart.reduce((total, item) => total + Number(item.price || 0), 0)
+    const subtotal = cart.reduce((total, item) => total + Number(item.price || 0) * (item.quantity || 1), 0)
     const discount = subtotal * (discountPercent / 100)
     const shipping = 15
     const total = subtotal -  discount + shipping
@@ -48,7 +48,7 @@ function Checkout() {
           body: JSON.stringify({
             produse: cart.map((p) => ({
               id: p.id,
-              name: p.name,
+              name: p.prod_name,
               brand: p.brand,
               price: p.price,
               quantity: p.quantity || 1,

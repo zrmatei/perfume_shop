@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useWishlist, WishlistContext } from "./auth/WishlistContext";
-import { AuthContext } from "./auth/AuthContext";
+import { useWishlist, WishlistContext } from "./context/WishlistContext";
+import { AuthContext } from "./context/AuthContext";
 import HeartIcon from "./HeartIcon"; 
 import "../css/wishlist.css";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "./auth/CartContext";
+import { useCart } from "./context/CartContext";
 
 function WishlistOverlay() {
   const { wishlist } = useWishlist();
@@ -58,14 +58,12 @@ function WishlistOverlay() {
                   <div key={i.id} className="wishlistItem">
                     <img src={i.image} alt={i.name} />
                     <p>{i.brand}</p>
-                    <h4>{i.name}</h4>
+                    <h4>{i.prod_name}</h4>
                     <p>{i.price} lei</p>
-                    <button
-                      className="move-to-cart-btn"
-                      onClick={() => handleWishlist(i)}
-                    >
-                      TO CART
-                    </button>
+                    <div className="wishlist-btns">
+                      <button className="move-to-cart-btn" onClick={() => handleWishlist(i)}>TO CART</button>
+                      <button className="delete-item-btn" onClick={() => toggleWishlistItem(i)}>REMOVE</button>
+                    </div>
                   </div>
                 ))
               ) : (

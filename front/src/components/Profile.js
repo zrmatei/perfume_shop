@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import judeteOrase from "../data/ro.json";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./auth/AuthContext.js";
-import { useCart } from "./auth/CartContext.js";
+import { AuthContext } from "./context/AuthContext.js";
+import { useCart } from "./context/CartContext.js";
 import "../css/profile.css";
-import { useWishlist } from "./auth/WishlistContext.js";
+import { useWishlist } from "./context/WishlistContext.js";
 import validator from "validator";
 
 function Profile({ visible, onClose }) {

@@ -162,3 +162,14 @@
     transform: translateX(0%);
   }
 }
+
+.voucher-err-text{
+  color: brown;
+  margin-top: 10px;
+  padding-left: 10px;
+  font-size: 1rem;
+}
+
+.voucher-err-text.hidden{
+  display: none;
+}

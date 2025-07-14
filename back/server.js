@@ -28,11 +28,10 @@ const db = mysql.createConnection({
 });
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
+  service: "gmail",
   auth: {
-    user: "alice.fadel@ethereal.email",
-    pass: "yeAuCaNgwmEQPeBaSc",
+    user: process.env.TRANSPORTER_EMAIL,
+    pass: process.env.TRANSPORTER_PASS
   },
 });
 
@@ -164,11 +163,12 @@ app.post("/generate-voucher", requireAuth, async (req, res) => {
     }
 
     const code = genVoucherCode();
+    const percent = 10
 
     await db.promise().query(
-      `INSERT INTO vouchers (code, percent, expires_at, is_used)
-       VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), FALSE)`,
-      [code, percent]
+      `INSERT INTO vouchers (code, percent, discount_value, expires_at, is_used)
+       VALUES (?, ?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY), FALSE)`,
+      [code, percent, 0]
     );
 
     await db.promise().query(
@@ -353,7 +353,7 @@ app.post("/checkout", async (req, res) => {
       .map((p) => `- ${p.name} ${p.brand} x${p.quantity} (${p.price} lei fiecare)`)
       .join("\n");
     const mail = {
-      from: '"Void" <alice.fadel@ethereal.email>',
+      from: '"Void" <zrmatei03@gmail.com>',
       to: finalEmail,
       subject: "Order confirmed",
       text: `

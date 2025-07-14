@@ -50,10 +50,12 @@ function CartProvider({children}) {
     }, [cartKey])
       
     const toggleCartItem = (perfume) => {
-        if(cart.find(item => item.id === perfume.id)){
-            setCart(cart.filter(item => item.id !== perfume.id))
-        }else{
-            setCart([...cart, perfume])
+        const exists = cart.find(item => item.id === perfume.id);
+        if(exists){
+            const updated = cart.map(item => item.id === perfume.id ? {...item, quantity: perfume.quantity} : item);
+            setCart(updated)
+        } else{
+            setCart([...cart, {...perfume, quantity: perfume.quantity || 1}])
         }
     }
 
@@ -69,8 +71,13 @@ function CartProvider({children}) {
         localStorage.removeItem(cartKey)
     }
 
+    const removeFromCart = (id) => {
+        const updated = cart.filter(item => item.id !== id);
+        setCart(updated)
+    }
+
     return(
-    <CartContext.Provider value={{cart, toggleCartItem, moveToCart, clearCart}}>
+    <CartContext.Provider value={{cart, toggleCartItem, moveToCart, clearCart, removeFromCart}}>
         {children}
     </CartContext.Provider>
     )

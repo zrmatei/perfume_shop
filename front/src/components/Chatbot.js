@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import { useChatbot } from "../components/auth/ChatbotContext";
-import { AuthContext } from "./auth/AuthContext";
+import { useChatbot } from "../components/context/ChatbotContext";
+import { AuthContext } from "./context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import pbottle from "../assets/perfume.svg";
 import "../css/Chatbot.css";
