@@ -1,0 +1,167 @@
+[
+    {
+      "judet": "Bucuresti",
+      "orase": ["Bucuresti", "Voluntari"]
+    },
+    {
+      "judet": "Cluj",
+      "orase": ["Cluj-Napoca", "Floresti", "Turda", "Dej"]
+    },
+    {
+      "judet": "Iasi",
+      "orase": ["Iasi", "Pascani"]
+    },
+    {
+      "judet": "Constanta",
+      "orase": ["Constanta", "Medgidia", "Navodari", "Mangalia"]
+    },
+    {
+      "judet": "Timis",
+      "orase": ["Timisoara", "Lugoj"]
+    },
+    {
+      "judet": "Brasov",
+      "orase": ["Brasov", "Sacele", "Fagaras"]
+    },
+    {
+      "judet": "Dolj",
+      "orase": ["Craiova"]
+    },
+    {
+      "judet": "Galati",
+      "orase": ["Galati", "Tecuci"]
+    },
+    {
+      "judet": "Bihor",
+      "orase": ["Oradea"]
+    },
+    {
+      "judet": "Prahova",
+      "orase": ["Ploiesti", "Campina"]
+    },
+    {
+      "judet": "Braila",
+      "orase": ["Braila"]
+    },
+    {
+      "judet": "Arad",
+      "orase": ["Arad"]
+    },
+    {
+      "judet": "Arges",
+      "orase": ["Pitesti", "Mioveni", "Campulung"]
+    },
+    {
+      "judet": "Bacau",
+      "orase": ["Bacau", "Onesti"]
+    },
+    {
+      "judet": "Sibiu",
+      "orase": ["Sibiu", "Medias"]
+    },
+    {
+      "judet": "Mures",
+      "orase": ["Targu Mures", "Reghin"]
+    },
+    {
+      "judet": "Maramures",
+      "orase": ["Baia Mare", "Sighetu Marmatiei", "Borsa"]
+    },
+    {
+      "judet": "Buzau",
+      "orase": ["Buzau", "Ramnicu Sarat"]
+    },
+    {
+      "judet": "Valcea",
+      "orase": ["Ramnicu Valcea"]
+    },
+    {
+      "judet": "Satu Mare",
+      "orase": ["Satu Mare"]
+    },
+    {
+      "judet": "Botosani",
+      "orase": ["Botosani"]
+    },
+    {
+      "judet": "Suceava",
+      "orase": ["Suceava"]
+    },
+    {
+      "judet": "Caras-Severin",
+      "orase": ["Resita"]
+    },
+    {
+      "judet": "Mehedinti",
+      "orase": ["Drobeta-Turnu Severin"]
+    },
+    {
+      "judet": "Neamt",
+      "orase": ["Piatra Neamt", "Roman"]
+    },
+    {
+      "judet": "Bistrita-Nasaud",
+      "orase": ["Bistrita"]
+    },
+    {
+      "judet": "Gorj",
+      "orase": ["Targu Jiu"]
+    },
+    {
+      "judet": "Dambovita",
+      "orase": ["Targoviste"]
+    },
+    {
+      "judet": "Vrancea",
+      "orase": ["Focsani"]
+    },
+    {
+      "judet": "Tulcea",
+      "orase": ["Tulcea"]
+    },
+    {
+      "judet": "Alba",
+      "orase": ["Alba Iulia", "Sebes"]
+    },
+    {
+      "judet": "Olt",
+      "orase": ["Slatina", "Caracal"]
+    },
+    {
+      "judet": "Vaslui",
+      "orase": ["Vaslui", "Bârlad"]
+    },
+    {
+      "judet": "Calarasi",
+      "orase": ["Calarasi"]
+    },
+    {
+      "judet": "Giurgiu",
+      "orase": ["Giurgiu"]
+    },
+    {
+      "judet": "Ilfov",
+      "orase": ["Popesti-Leordeni", "Bragadiru", "Pantelimon", "Berceni"]
+    },
+    {
+      "judet": "Hunedoara",
+      "orase": ["Deva", "Hunedoara", "Petrosani"]
+    },
+    {
+      "judet": "Salaj",
+      "orase": ["Zalau"]
+    },
+    {
+      "judet": "Covasna",
+      "orase": ["Sfantu Gheorghe"]
+    },
+    {
+      "judet": "Harghita",
+      "orase": ["Miercurea Ciuc", "Odorheiu Secuiesc"]
+    },
+    {
+      "judet": "Ialomita",
+      "orase": ["Slobozia", "Fetesti"]
+    }
+  ]
+  
